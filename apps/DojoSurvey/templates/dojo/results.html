@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Results!</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'dojo/style.css' %}">
+</head>
+<body>
+    <div id="content">
+        <h2>Submitted Info</h2>
+        <p class="results">Name : {{request.session.your_name}}</p>
+        <p class="results">Dojo Location : {{request.session.location}}</p>
+        <p class="results">Favorite Language : {{request.session.language}}</p>
+        <p class="results">Favorite End : {{request.session.end}}</p>
+        <p class="results">Known Frameworks: 
+        {% for framework in request.session.frameworks %}
+            {{framework}} 
+        {% endfor %}
+        </p>
+        <p class="results">Comments : {{request.session.comments}}</p>
+        <a href="/"><button class="results">Go Back</button></a>
+    </div>
+</body>
+</html>

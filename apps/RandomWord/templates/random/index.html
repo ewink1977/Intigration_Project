@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Gibberish Generator</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'random/style.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Special+Elite&family=Staatliches&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="container">
+        <h2>Random Word (Attempt #{{ request.session.counter }}):</h2>
+        <p id="gibberish">{{ gibberish }}</p>
+        <form action="" method="post">
+            {% csrf_token %}
+            <button type="submit" name="reload">RELOAD!</button>
+        </form>
+    </div> 
+</body>
+</html>

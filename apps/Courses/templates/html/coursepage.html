@@ -1,0 +1,60 @@
+{% extends "html/base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col">
+<h2>Course Information & Comments</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <p>Name:</p>
+    </div>
+    <div class="col">
+        <p>{{ courseinfo.name }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <p>Description:</p>
+    </div>
+    <div class="col">
+        <p>{{ courseinfo.course_desc.desc }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+<h2>Add a Comment</h2>
+    </div>
+</div>
+<form action="{% url 'add_comment' courseinfo.id %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group row">
+        <label for="commentor" class="col-sm-2 col-form-label">Name:</label>
+        <input type="text" class="form-control col-sm-4" id="commentor" name="commentor">
+    </div>
+    <div class="form-group row">
+        <label for="commentbody" class="col-sm-2 col-form-label">Comment:</label>
+        <textarea class="form-control col-sm-4" name="commentbody" id="commentbody" rows="5"></textarea>
+    </div>
+    <div class="form-group row">
+        <div class="col-6 text-right pr-0">
+            <button type="submit" class="btn btn-success">Add</button>
+        </div>
+    </div>
+</form>
+{% for comment in comments %}
+<div class="border border-info rounded mt-2 mb-2 col-8">
+    <div class="row pl-2">
+        <div class="col-2">
+            <p class="font-weight-bold">{{ comment.user }}</p>
+        </div>
+    </div>
+    <div class="row pl-5">
+        <div class="col">
+            <p class="font-weight-light">{{ comment.text }}</p>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<a href="{% url 'home' %}"><small class="row text-uppercase text-bold">Back Home</small></a>
+{% endblock content %}

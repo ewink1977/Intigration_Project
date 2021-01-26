@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojo Survey</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'dojo/style.css' %}">
+</head>
+<body>
+    <div id="content">
+        <form action="/redir" method="post">
+            {% csrf_token %}
+            <p>Your Name: <input name="your_name" type="text"></p>
+            <p>Dojo Location: <select name="location" id="location">
+                <option value="Arlington, VA">Arlington, VA</option>
+                <option value="Bellevue, WA">Bellevue, WA</option>
+                <option value="Boise, ID">Boise, ID</option>
+                <option value="Chicago, IL">Chicago</option>
+                <option value="Dallas, TX">Dallas</option>
+                <option value="Los Angeles, CA">Los Angeles</option>
+                <option value="Oakland, CA">Oakland</option>
+                <option value="Orange County, CA">OC</option>
+                <option value="San Jose, CA">San Jose</option>
+                <option value="Tulsa, OK">Tulsa, OK</option>
+                <option value="Online">Online</option>
+            </select></p>
+            <p>Favorite Language: <select name="language" id="language">
+                <option value="JavaScript">JavaScript</option>
+                <option value="Python">Python</option>
+                <option value="BASIC">BASIC</option>
+                <option value="Java">Java</option>
+                <option value="C#">C#</option>
+                <option value="HTML">HTML</option>
+                <option value="CSS">CSS</option>
+            </select></p>
+            <p>Favorite End: <br>
+                <input type="radio" name="end" id="frontend" value="Front End">
+                <label for="frontend">Front End</label>
+                <input type="radio" name="end" id="backend" value="Back End">
+                <label for="backend">Back End</label>
+                <input type="radio" name="end" id="bothend" value="Both Ends">
+                <label for="bothend">Both Ends!</label>
+            </p>
+            <p>Frameworks: <br>
+                <input type="checkbox" name="frameworks" id="jQuery" value="jQuery">
+                <label for="jQuery">jQuery</label>
+                <input type="checkbox" name="frameworks" id="Bootstrap" value="Bootstrap">
+                <label for="Bootstrap">Bootstrap</label>
+                <input type="checkbox" name="frameworks" id="Django" value="Django">
+                <label for="Django">Django</label>
+                <input type="checkbox" name="frameworks" id="Flask" value="Flask">
+                <label for="Flask">Flask</label>
+                <input type="checkbox" name="frameworks" id="React" value="React">
+                <label for="React">jQuery</label>
+            </p>
+            <p>Comments (Optional):</p>
+            <textarea name="comments" id="comments" cols="100" rows="10"></textarea>
+            <br>
+            <button type="submit" value="submit">GO!</button>
+    </form>
+    </div>
+</body>
+</html>
