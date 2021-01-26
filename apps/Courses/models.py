@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
+from ..LoginAndRegistration.models import User as Student
 
 class basicValidation(models.Manager):
     def basic_validation(self, postData):
@@ -13,6 +15,10 @@ class Courses(models.Model):
     name = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    student = models.ManyToManyField(
+        Student,
+        related_name = 'course',
+    )
     objects = basicValidation()
 class Descriptions(models.Model):
     desc = models.TextField()
@@ -21,7 +27,7 @@ class Descriptions(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = basicValidation()
 
-class Comments(models.Model):
+class CourseComments(models.Model):
     user = models.CharField(max_length=100)
     text = models.TextField()
     course_comment = models.ForeignKey(Courses, related_name="comments", on_delete = models.CASCADE)

@@ -43,6 +43,7 @@ class User(models.Model):
     birthdate = models.DateField()
     email = models.EmailField()
     password = models.CharField(max_length=255)
+    # course = Course User Has Signed Up Too!
     
     objects = ValidationTest()
 

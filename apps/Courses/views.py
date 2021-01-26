@@ -1,6 +1,7 @@
-from course_list.models import Comments, Courses, Descriptions
+from .models import CourseComments, Courses, Descriptions
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from ..LoginAndRegistration.models import User
 
 def home(request):
     context = {
@@ -20,7 +21,7 @@ def add_course(request):
             newcourse = Courses.objects.create(name=request.POST['coursename'])
             Descriptions.objects.create(desc=request.POST['coursedesc'], course=newcourse)
             messages.success(request, f"{ request.POST['coursename'] } has been created successfully!")
-            return redirect('home')
+            return redirect('course:home')
 
 def destroy_course(request, killid):
     if request.method == 'GET':
@@ -31,18 +32,18 @@ def destroy_course(request, killid):
     if request.method == 'POST':
         byebye = Courses.objects.get(id=killid)
         byebye.delete()
-        return redirect('home')
+        return redirect('course:home')
 
 def show_course(request, courseid):
     context = {
         "courseinfo" : Courses.objects.get(id=courseid),
-        "comments" : Comments.objects.filter(course_comment=courseid),
+        "comments" : CourseComments.objects.filter(course_comment=courseid),
     }
     return render(request, 'html/coursepage.html', context)
 
 def add_comment(request, courseid):
     if request.method == 'POST':
         attachto = Courses.objects.get(id=courseid)
-        Comments.objects.create(user=request.POST['commentor'], text=request.POST['commentbody'], course_comment=attachto)
+        CourseComments.objects.create(user=request.POST['commentor'], text=request.POST['commentbody'], course_comment=attachto)
         messages.success(request, f"Comment successfully added.")
-    return redirect('show_course', courseid)
+    return redirect('course:show_course', courseid)

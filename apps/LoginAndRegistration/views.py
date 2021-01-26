@@ -1,4 +1,4 @@
-from WallApp.views import wall_home
+# from WallApp.views import wall_home
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages

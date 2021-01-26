@@ -13,33 +13,35 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Courses',
+            name='User',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('first_name', models.CharField(max_length=255)),
+                ('last_name', models.CharField(max_length=255)),
+                ('birthdate', models.DateField()),
+                ('email', models.EmailField(max_length=254)),
+                ('password', models.CharField(max_length=255)),
             ],
         ),
         migrations.CreateModel(
-            name='Descriptions',
+            name='WallPost',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('desc', models.TextField()),
+                ('message', models.TextField()),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('course', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='course_desc', to='Courses.Courses')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='usr_post', to='LoginAndRegistration.User')),
             ],
         ),
         migrations.CreateModel(
             name='Comments',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('user', models.CharField(max_length=100)),
-                ('text', models.TextField()),
+                ('comment', models.TextField()),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('course_comment', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='Courses.Courses')),
+                ('message', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='msg_comment', to='LoginAndRegistration.WallPost')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_comments', to='LoginAndRegistration.User')),
             ],
         ),
     ]
