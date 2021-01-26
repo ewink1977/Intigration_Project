@@ -5,7 +5,7 @@ from django.contrib import messages
 from .models import User
 import bcrypt
 
-def home(request):
+def LaR_home(request):
     return render(request, 'html/home.html' )
 
 def register(request):

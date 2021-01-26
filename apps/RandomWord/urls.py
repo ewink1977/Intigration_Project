@@ -3,6 +3,6 @@ from . import views
 
 app_name = 'random'
 urlpatterns = [
-	path('', views.index, name = 'home'),
-    path('reset', views.reset, name = 'reset')
+	path('', views.random_index, name = 'home'),
+    path('reset', views.rand_reset, name = 'reset')
 ]

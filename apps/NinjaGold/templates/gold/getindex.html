@@ -2,7 +2,7 @@
     {% block content %}
     <header class="d-flex justify-content-center align-items-center">
         <h1>Ninja Gold!</h1>
-        <a href="reset"><button>START OVER</button></a>
+        <a href="{% url 'gold:reset' %}"><button>START OVER</button></a>
     </header>
 
     <h3 class="local-pad">Your Gold: <input type="text" disabled value="{{ request.session.gold }}"></h3>

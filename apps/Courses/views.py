@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from ..LoginAndRegistration.models import User
 
-def home(request):
+def course_home(request):
     context = {
         "courses" : Courses.objects.all(),
         "descriptions" : Descriptions.objects.all(),

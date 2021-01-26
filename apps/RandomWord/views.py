@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.utils.crypto import get_random_string
 
 # Create your views here.
-def index(request):
+def random_index(request):
     if request.method == 'GET':
         print('RANDOM GIBBERISH VIA GET REQUEST!')
         request.session['counter'] = 1
@@ -15,7 +15,7 @@ def index(request):
     } 
     return render(request, 'random/index.html', context)
 
-def reset(request):
+def rand_reset(request):
     print('GIBBERISH COUNTER RESET')
     request.session.flush()
     return redirect('/')
