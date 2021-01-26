@@ -6,7 +6,7 @@ from .models import User
 import bcrypt
 
 def LaR_home(request):
-    return render(request, 'html/home.html' )
+    return render(request, 'user/home.html' )
 
 def register(request):
     if request.method == 'POST':
@@ -16,7 +16,7 @@ def register(request):
                 messages.error(request, value, extra_tags='danger')
             return redirect('login:home')
         prehash = request.POST['password']
-        hash_n_salt = bcrypt.hashpw(prehash.encode(), bcrypt.gensalt(17)).decode()
+        hash_n_salt = bcrypt.hashpw(prehash.encode(), bcrypt.gensalt()).decode()
         newuser = User.objects.create(
             first_name = request.POST['firstname'], 
             last_name = request.POST['lastname'], 
@@ -25,6 +25,7 @@ def register(request):
             password = hash_n_salt
         )
         request.session['userid'] = newuser.id
+        request.session['loggedin'] = True
         messages.success(request, f"User { request.POST['email'] } has been created successfully!")
         return redirect('login:success')
     else:
@@ -36,7 +37,7 @@ def success(request):
             context = {
                 "userinfo" : User.objects.get(id = request.session['userid'])
             }
-            return render(request, 'html/success.html', context)
+            return render(request, 'user/success.html', context)
     else:
         return redirect('login:home')
 

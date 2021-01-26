@@ -22,7 +22,7 @@ def gold_home(request):
 
 def reset(request):
     request.session.flush()
-    return redirect('/')
+    return redirect('gold:home')
 
 def process_gold(request):
     if request.method == 'GET':
@@ -41,7 +41,7 @@ def process_gold(request):
                 gold_prize = gold_prize * -1
         request.session['gold'] += gold_prize
         request.session['activities'].append({"message": message, "result": result})
-        return redirect('/')
+        return redirect('gold:home')
     if request.method == 'POST':
         location = request.POST["gold_location"]
         building = gold_map[location] # Access the correct values...
@@ -58,7 +58,7 @@ def process_gold(request):
                 gold_prize = gold_prize * -1
         request.session['gold'] += gold_prize
         request.session['activities'].append({"message": message, "result": result})
-        return redirect('/')
+        return redirect('gold:home')
 
 
 

@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'apps.LoginAndRegistration',
     'apps.NinjaGold',
     'apps.RandomWord',
+    'apps.WallApp',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

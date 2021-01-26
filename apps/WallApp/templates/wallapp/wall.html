@@ -1,0 +1,82 @@
+{% extends "wallapp/base.html" %}
+{% block wall %}
+<form action="{% url 'wall:add_message' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="message">Post A Message!</label>
+        <textarea class="form-control" name="message" id="message" rows="5"></textarea>
+    </div>
+    <div class="text-right mb-3">
+        <button type="submit" class="btn btn-primary">Post Message</button>
+    </div>
+</form>
+{% if wallposts %}
+{% for post in wallposts %}
+<div class="row">
+    <div class="col-auto ml-5">
+        <p class="font-weight-bold">{{ post.user.first_name }} {{ post.user.last_name }} - {{ post.created_at|date:"F j, Y" }}</p>
+    </div>
+</div>
+<div class="row align-items-end">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <p class="text-right">{{ post.message }}</p>
+    </div>
+    {% if post.user.id == loggedinuser.id %}
+    <div class="col-1 align-self-center">
+        <form action="{% url 'wall:delete_post' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="postid" value="{{ post.id }}">
+            <button type="submit" class="btn btn-danger">DELETE</button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% if comments %}
+{% for comment in comments %}
+{% if comment.message.id == post.id %}
+<div class="row">
+    <div class="col-auto ml-5 pl-5">
+        <p class="font-weight-bold">{{ comment.user.first_name }} {{ comment.user.last_name }} - {{ comment.created_at|date:"F j, Y" }}</p>
+    </div>
+</div>
+<div class="row align-items-end">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <p class="text-right">{{ comment.comment }}</p>
+    </div>
+    {% if comment.user.id == loggedinuser.id %}
+    <div class="col-1 align-self-center">
+        <form action="{% url 'wall:delete_comment' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="commentid" value="{{ comment.id }}">
+            <button type="submit" class="btn btn-danger">DELETE</button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+<!-- End Comment Block. -->
+{% endif %}
+{% endfor %}
+{% endif %}
+<div class="row align-items-end">
+    <div class="col-2"></div>
+    <div class="col-10">
+        <form action="{% url 'wall:add_comment' post.id %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="comment">Post A Comment!</label>
+                <textarea class="form-control" name="comment" id="comment" rows="3"></textarea>
+            </div>
+            <div class="text-right mb-3">
+                <button type="submit" class="btn btn-success">Post Comment</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- End Message Block. -->
+{% endfor %}
+{% endif %}
+<!-- End Page. -->
+{% endblock wall %}
+

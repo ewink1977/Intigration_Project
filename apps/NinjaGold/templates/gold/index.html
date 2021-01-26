@@ -2,14 +2,14 @@
     {% block content %}
     <header class="d-flex justify-content-center align-items-center">
         <h1>Ninja Gold!</h1>
-        <a href="reset"><button>START OVER</button></a>
+        <a href="{% url 'gold:reset' %}"><button>START OVER</button></a>
     </header>
 
     <h3 class="local-pad">Your Gold: <input type="text" disabled value="{{ request.session.gold }}"></h3>
 
     <div class="d-flex justify-content-center">
         <div class="d-flex justify-content-center align-items-center col-3 border border-secondary rounded-lg shadow local-pad">
-            <form action="process_gold" method="POST">
+            <form action="{% url 'gold:process_gold' %}" method="POST">
                 {% csrf_token %}
                 <h2>Farm</h2>
                 <input type="hidden" name="gold_location" value="farm">
@@ -17,7 +17,7 @@
             </form>
         </div>
         <div class="d-flex justify-content-center align-items-center col-3 border border-secondary rounded-lg shadow local-pad">
-            <form action="process_gold" method="POST">
+            <form action="{% url 'gold:process_gold' %}" method="POST">
                 {% csrf_token %}
                 <h2>Cave</h2>
                 <input type="hidden" name="gold_location" value="cave">
@@ -25,7 +25,7 @@
             </form>
         </div>
         <div class="d-flex justify-content-center align-items-center col-3 border border-secondary rounded-lg shadow local-pad">
-            <form action="process_gold" method="POST">
+            <form action="{% url 'gold:process_gold' %}" method="POST">
                 {% csrf_token %}
                 <h2>House</h2>
                 <input type="hidden" name="gold_location" value="house">
@@ -33,7 +33,7 @@
             </form>
         </div>
         <div class="d-flex justify-content-center align-items-center col-3 border border-secondary rounded-lg shadow local-pad">
-            <form action="process_gold" method="POST">
+            <form action="{% url 'gold:process_gold' %}" method="POST">
                 {% csrf_token %}
                 <h2>Casino</h2>
                 <input type="hidden" name="gold_location" value="casino">

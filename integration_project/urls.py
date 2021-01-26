@@ -19,6 +19,7 @@ urlpatterns = [
     path('courses/', include('apps.Courses.urls')),
     path('survey/', include('apps.DojoSurvey.urls')),
     path('user/', include('apps.LoginAndRegistration.urls')),
+    path('wall/', include('apps.WallApp.urls')),
     path('gold/', include('apps.NinjaGold.urls')),
-    path('courses/', include('apps.Courses.urls')),
+    path('random/', include('apps.RandomWord.urls')),
 ]
