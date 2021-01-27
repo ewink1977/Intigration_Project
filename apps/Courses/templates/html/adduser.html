@@ -1,4 +1,52 @@
 {% extends "html/base.html" %}
 {% block content %}
 
+<div class="row">
+    <form action="{% url 'course:process_student_add' %}" method="POST">
+        <div class="form-row align-items-center">
+            {% csrf_token %}
+            <div class="col-3 my-1">
+                <select id="user" name="userid" class="form-control">
+                    <option selected>Users...</option>
+                    {% for user_obj in users %}
+                        <option value="{{ user_obj.id }}">{{ user_obj.first_name }} {{ user_obj.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-4 my-1">
+                <select id="course" name='courseid' class="form-control">
+                    <option selected>Courses...</option>
+                    {% for course_obj in courses %}
+                    <option value="{{ course_obj.id }}">{{ course_obj.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-auto my-1">
+                <button type="submit" class="btn btn-primary">Add User To Course</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="col-8">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Course</th>
+                <th scope="col">Title</th>
+                <th scope="col">Students</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course_obj in courses %}
+                <tr>
+                    <th scope="row">{{ course_obj.id }}</th>
+                    <td>{{ course_obj.name }}</td>
+                    <td>{{ course_obj.student.all|length }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<p class="ml-3"><a href="{% url 'course:home' %}">&lt;&lt; Return Home</a></p>
 {% endblock content %}

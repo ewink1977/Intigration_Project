@@ -47,3 +47,20 @@ def add_comment(request, courseid):
         CourseComments.objects.create(user=request.POST['commentor'], text=request.POST['commentbody'], course_comment=attachto)
         messages.success(request, f"Comment successfully added.")
     return redirect('course:show_course', courseid)
+
+def add_user_to_course(request):
+    context = {
+        'courses': Courses.objects.all(),
+        'users': User.objects.all(),
+    }
+    return render(request, 'html/adduser.html', context)
+
+def process_add_user_to_course(request):
+    if request.method == 'POST':
+        student = User.objects.get(id = request.POST['userid'])
+        course = Courses.objects.get(id = request.POST['courseid'])
+        course.student.add(student)
+        messages.success(request, f"{student.first_name} has been added to {course.name}.")
+        return redirect('course:student_add')
+    else:
+        return redirect('course:home')
